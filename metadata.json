@@ -1,0 +1,6 @@
+{
+  "name": "Star Wars: The Deckbuilding Game",
+  "description": "Gioca a Star Wars: The Deckbuilding Game contro un bot strategico con regole ufficiali, tracciatore della Forza, Capital Ship e basi galattiche.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
