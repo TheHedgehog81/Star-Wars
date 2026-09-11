@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ResourceCubeIcon, BlasterAttackIcon } from './GameIcons';
-import { X, BookOpen, Shield, Zap, Target, Anchor } from 'lucide-react';
+import { ResourceSquareIcon, BlasterAttackIcon, StarshipFleetIcon, ForceStarWarsIcon } from './GameIcons';
+import { X, BookOpen, Shield, Target } from 'lucide-react';
 
 interface RulesModalProps {
   language: 'it' | 'en';
@@ -63,13 +63,13 @@ export const RulesModal: React.FC<RulesModalProps> = ({ language, onClose }) => 
               {/* Risorse e Valute */}
               <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
                 <h3 className="text-base font-bold text-amber-400 mb-2 flex items-center gap-1.5">
-                  <ResourceCubeIcon className="w-4 h-4" glow /> 2. Le Risorse di Gioco
+                  <ResourceSquareIcon className="w-4 h-4" glow /> 2. Le Risorse di Gioco
                 </h3>
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
-                    <ResourceCubeIcon className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" glow />
+                    <ResourceSquareIcon className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" glow />
                     <div>
-                      <strong className="text-amber-300">Risorse (Cubo Giallo):</strong> Si usano per acquistare carte alleate o neutrali dalla Fila della Galassia oppure i Piloti dell’Orlo Esterno.
+                      <strong className="text-amber-300">Risorse (Stemma Quadrato Giallo):</strong> Si usano per acquistare carte alleate o neutrali dalla Fila della Galassia oppure i Piloti dell’Orlo Esterno.
                     </div>
                   </div>
                   <div className="flex items-start gap-2">
@@ -79,7 +79,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ language, onClose }) => 
                     </div>
                   </div>
                   <div className="flex items-start gap-2">
-                    <Zap className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    <ForceStarWarsIcon className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" glow />
                     <div>
                       <strong className="text-cyan-400">La Forza (Tracciatore):</strong> Muove il segnalino verso il tuo lato (Lato Chiaro per i Ribelli, Lato Oscuro per l’Impero).
                     </div>
@@ -90,7 +90,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ language, onClose }) => 
               {/* Tracciatore della Forza */}
               <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
                 <h3 className="text-base font-bold text-cyan-400 mb-1 flex items-center gap-1.5">
-                  <Zap className="w-4 h-4" /> 3. Tracciatore dell’Equilibrio della Forza
+                  <ForceStarWarsIcon className="w-4 h-4" glow /> 3. Tracciatore dell’Equilibrio della Forza
                 </h3>
                 <p>
                   La Forza è con te ogni volta che il segnalino si trova dalla tua parte (valori negativi per i Ribelli, positivi per l’Impero). Molte carte (es. <em>Luke Skywalker, Caccia TIE Interceptor</em>) hanno abilità aggiuntive potentissime <strong>"Se la Forza è con te"</strong>!
@@ -117,7 +117,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ language, onClose }) => 
               {/* Navi Ammiraglie */}
               <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
                 <h3 className="text-base font-bold text-blue-400 mb-1 flex items-center gap-1.5">
-                  <Anchor className="w-4 h-4" /> 5. Navi Ammiraglie (Capital Ships)
+                  <StarshipFleetIcon className="w-4 h-4" /> 5. Navi Ammiraglie (Capital Ships)
                 </h3>
                 <p>
                   A differenza delle Unità (che vengono scartate a fine turno), le <strong>Navi Ammiraglie</strong> rimangono nella tua Flotta turno dopo turno finché non vengono distrutte:
@@ -155,16 +155,16 @@ export const RulesModal: React.FC<RulesModalProps> = ({ language, onClose }) => 
 
               <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
                 <h3 className="text-base font-bold text-amber-400 mb-2 flex items-center gap-1.5">
-                  <ResourceCubeIcon className="w-4 h-4" glow /> 2. Resources & Combat
+                  <ResourceSquareIcon className="w-4 h-4" glow /> 2. Resources & Combat
                 </h3>
                 <p>
-                  Players manage <strong>Resources (Yellow Cubes)</strong> to purchase units, <strong>Attack (Blaster Pistols)</strong> to defeat capital ships, bases, or sabotage enemy cards in the Galaxy Row, and <strong>The Force</strong> to shift the Force balance in their favor.
+                  Players manage <strong>Resources (Yellow Square Icon)</strong> to purchase units, <strong>Attack (Blaster Pistols)</strong> to defeat capital ships, bases, or sabotage enemy cards in the Galaxy Row, and <strong>The Force</strong> to shift the Force balance in their favor.
                 </p>
               </div>
 
               <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
                 <h3 className="text-base font-bold text-blue-400 mb-1 flex items-center gap-1.5">
-                  <Anchor className="w-4 h-4" /> 3. Capital Ships Guarding the Base
+                  <StarshipFleetIcon className="w-4 h-4" /> 3. Capital Ships Guarding the Base
                 </h3>
                 <p>
                   Capital Ships stay in your fleet across turns until destroyed. While you control any Capital Ship, your active base cannot be targeted directly—opponents must eliminate your Capital Ships first!

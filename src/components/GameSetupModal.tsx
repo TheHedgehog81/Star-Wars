@@ -5,7 +5,6 @@ import { FactionIcon } from './FactionIcon';
 import {
   Volume2,
   VolumeX,
-  Bot,
   ShieldAlert,
   Sparkles,
   Swords,
@@ -34,64 +33,64 @@ const FACTION_THEMES: Record<
   }
 > = {
   rebel: {
-    bgUnselected: 'bg-gradient-to-br from-blue-950/80 via-slate-900/90 to-blue-950/50',
-    bgSelected: 'bg-gradient-to-br from-blue-900/95 via-blue-950 to-slate-950',
-    borderUnselected: 'border-blue-700/50 hover:border-blue-400/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]',
-    borderSelected: 'border-blue-400 shadow-[0_0_22px_rgba(59,130,246,0.45)] ring-2 ring-blue-400',
-    badgeBg: 'bg-blue-950 border-blue-500/50 text-blue-300',
-    textAccent: 'text-blue-200',
-    chosenBadge: 'text-blue-300 bg-blue-950/90 border-blue-400/60 shadow-[0_0_8px_rgba(59,130,246,0.4)]',
-    botSelectedBg: 'bg-gradient-to-br from-blue-900/90 via-blue-950 to-slate-950',
-    botSelectedBorder: 'border-blue-400 text-blue-200 shadow-[0_0_16px_rgba(59,130,246,0.4)] ring-1 ring-blue-400',
-    botChosenBadge: 'text-blue-300 bg-blue-950 border-blue-400',
+    bgUnselected: 'bg-slate-900',
+    bgSelected: 'bg-[#1d4ed8]',
+    borderUnselected: 'border-slate-700 hover:border-blue-400',
+    borderSelected: 'border-white ring-2 ring-blue-500',
+    badgeBg: 'bg-black/60 border-black/80 text-white',
+    textAccent: 'text-white',
+    chosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
+    botSelectedBg: 'bg-[#1d4ed8]',
+    botSelectedBorder: 'border-white text-white ring-2 ring-blue-500',
+    botChosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
   },
   empire: {
-    bgUnselected: 'bg-gradient-to-br from-red-950/80 via-zinc-900/90 to-red-950/50',
-    bgSelected: 'bg-gradient-to-br from-red-900/95 via-red-950 to-zinc-950',
-    borderUnselected: 'border-red-700/50 hover:border-red-400/80 hover:shadow-[0_0_15px_rgba(239,68,68,0.3)]',
-    borderSelected: 'border-red-400 shadow-[0_0_22px_rgba(239,68,68,0.45)] ring-2 ring-red-400',
-    badgeBg: 'bg-red-950 border-red-500/50 text-red-300',
-    textAccent: 'text-red-200',
-    chosenBadge: 'text-red-300 bg-red-950/90 border-red-400/60 shadow-[0_0_8px_rgba(239,68,68,0.4)]',
-    botSelectedBg: 'bg-gradient-to-br from-red-900/90 via-red-950 to-zinc-950',
-    botSelectedBorder: 'border-red-400 text-red-200 shadow-[0_0_16px_rgba(239,68,68,0.4)] ring-1 ring-red-400',
-    botChosenBadge: 'text-red-300 bg-red-950 border-red-400',
+    bgUnselected: 'bg-slate-900',
+    bgSelected: 'bg-[#800014]',
+    borderUnselected: 'border-slate-700 hover:border-red-400',
+    borderSelected: 'border-white ring-2 ring-red-600',
+    badgeBg: 'bg-black/60 border-black/80 text-white',
+    textAccent: 'text-white',
+    chosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
+    botSelectedBg: 'bg-[#800014]',
+    botSelectedBorder: 'border-white text-white ring-2 ring-red-600',
+    botChosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
   },
   mandalorian: {
-    bgUnselected: 'bg-gradient-to-br from-emerald-950/80 via-slate-900/90 to-emerald-950/50',
-    bgSelected: 'bg-gradient-to-br from-emerald-900/95 via-emerald-950 to-slate-950',
-    borderUnselected: 'border-emerald-700/50 hover:border-emerald-400/80 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]',
-    borderSelected: 'border-emerald-400 shadow-[0_0_22px_rgba(16,185,129,0.45)] ring-2 ring-emerald-400',
-    badgeBg: 'bg-emerald-950 border-emerald-500/50 text-emerald-300',
-    textAccent: 'text-emerald-200',
-    chosenBadge: 'text-emerald-300 bg-emerald-950/90 border-emerald-400/60 shadow-[0_0_8px_rgba(16,185,129,0.4)]',
-    botSelectedBg: 'bg-gradient-to-br from-emerald-900/90 via-emerald-950 to-slate-950',
-    botSelectedBorder: 'border-emerald-400 text-emerald-200 shadow-[0_0_16px_rgba(16,185,129,0.4)] ring-1 ring-emerald-400',
-    botChosenBadge: 'text-emerald-300 bg-emerald-950 border-emerald-400',
+    bgUnselected: 'bg-slate-900',
+    bgSelected: 'bg-[#15803d]',
+    borderUnselected: 'border-slate-700 hover:border-emerald-400',
+    borderSelected: 'border-white ring-2 ring-emerald-500',
+    badgeBg: 'bg-black/60 border-black/80 text-white',
+    textAccent: 'text-white',
+    chosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
+    botSelectedBg: 'bg-[#15803d]',
+    botSelectedBorder: 'border-white text-white ring-2 ring-emerald-500',
+    botChosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
   },
   republic: {
-    bgUnselected: 'bg-gradient-to-br from-amber-950/80 via-slate-900/90 to-amber-950/50',
-    bgSelected: 'bg-gradient-to-br from-amber-900/95 via-amber-950 to-slate-950',
-    borderUnselected: 'border-amber-700/50 hover:border-amber-400/80 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]',
-    borderSelected: 'border-amber-400 shadow-[0_0_22px_rgba(245,158,11,0.45)] ring-2 ring-amber-400',
-    badgeBg: 'bg-amber-950 border-amber-500/50 text-amber-300',
-    textAccent: 'text-amber-200',
-    chosenBadge: 'text-amber-300 bg-amber-950/90 border-amber-400/60 shadow-[0_0_8px_rgba(245,158,11,0.4)]',
-    botSelectedBg: 'bg-gradient-to-br from-amber-900/90 via-amber-950 to-slate-950',
-    botSelectedBorder: 'border-amber-400 text-amber-200 shadow-[0_0_16px_rgba(245,158,11,0.4)] ring-1 ring-amber-400',
-    botChosenBadge: 'text-amber-300 bg-amber-950 border-amber-400',
+    bgUnselected: 'bg-slate-900',
+    bgSelected: 'bg-[#881337]',
+    borderUnselected: 'border-slate-700 hover:border-rose-400',
+    borderSelected: 'border-white ring-2 ring-rose-500',
+    badgeBg: 'bg-black/60 border-black/80 text-white',
+    textAccent: 'text-white',
+    chosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
+    botSelectedBg: 'bg-[#881337]',
+    botSelectedBorder: 'border-white text-white ring-2 ring-rose-500',
+    botChosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
   },
   separatist: {
-    bgUnselected: 'bg-gradient-to-br from-purple-950/80 via-slate-900/90 to-purple-950/50',
-    bgSelected: 'bg-gradient-to-br from-purple-900/95 via-purple-950 to-slate-950',
-    borderUnselected: 'border-purple-700/50 hover:border-purple-400/80 hover:shadow-[0_0_15px_rgba(168,85,247,0.3)]',
-    borderSelected: 'border-purple-400 shadow-[0_0_22px_rgba(168,85,247,0.45)] ring-2 ring-purple-400',
-    badgeBg: 'bg-purple-950 border-purple-500/50 text-purple-300',
-    textAccent: 'text-purple-200',
-    chosenBadge: 'text-purple-300 bg-purple-950/90 border-purple-400/60 shadow-[0_0_8px_rgba(168,85,247,0.4)]',
-    botSelectedBg: 'bg-gradient-to-br from-purple-900/90 via-purple-950 to-slate-950',
-    botSelectedBorder: 'border-purple-400 text-purple-200 shadow-[0_0_16px_rgba(168,85,247,0.4)] ring-1 ring-purple-400',
-    botChosenBadge: 'text-purple-300 bg-purple-950 border-purple-400',
+    bgUnselected: 'bg-slate-900',
+    bgSelected: 'bg-[#0369a1]',
+    borderUnselected: 'border-slate-700 hover:border-sky-400',
+    borderSelected: 'border-white ring-2 ring-sky-500',
+    badgeBg: 'bg-black/60 border-black/80 text-white',
+    textAccent: 'text-white',
+    chosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
+    botSelectedBg: 'bg-[#0369a1]',
+    botSelectedBorder: 'border-white text-white ring-2 ring-sky-500',
+    botChosenBadge: 'text-white bg-black/70 border-black/90 font-bold',
   },
 };
 
@@ -142,8 +141,8 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
           </h1>
           <p className="text-xs text-slate-400 mt-1">
             {settings.language === 'it'
-              ? 'Scegli la fazione da comandare e quella del Bot rivale'
-              : 'Choose your faction and the rival Bot faction'}
+              ? 'Scegli la fazione da comandare e quella dell\'Avversario'
+              : 'Choose your faction and the Opponent faction'}
           </p>
         </div>
 
@@ -219,12 +218,12 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
           </div>
         </div>
 
-        {/* 2. Bot Rival Faction Choice */}
+        {/* 2. Opponent Faction Choice */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
-              <Bot className="w-4 h-4 text-rose-400" />
-              <span>2. {settings.language === 'it' ? 'Fazione del Bot Rivale' : 'Rival Bot Faction'}</span>
+              <Swords className="w-4 h-4 text-rose-400" />
+              <span>2. {settings.language === 'it' ? 'Fazione dell\'Avversario' : 'Opponent Faction'}</span>
             </label>
             <span className="text-[10px] text-slate-400">
               {settings.language === 'it' ? 'Scegli chi affronterai' : 'Choose your adversary'}
@@ -307,10 +306,10 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
             </div>
           </div>
 
-          {/* Bot Difficulty */}
+          {/* Opponent Difficulty */}
           <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-300 block mb-1.5">
-              {settings.language === 'it' ? 'Difficoltà del Bot' : 'Bot Difficulty'}
+              {settings.language === 'it' ? 'Difficoltà dell\'Avversario' : 'Opponent Difficulty'}
             </span>
             <div className="grid grid-cols-3 gap-1">
               {(['recruit', 'officer', 'master'] as BotDifficulty[]).map((diff) => {

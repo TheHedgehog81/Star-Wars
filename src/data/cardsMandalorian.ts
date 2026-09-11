@@ -11,8 +11,8 @@ export const MANDALORIAN_FOUNDLING: CardTemplate = {
   attack: 0,
   resources: 1,
   force: 0,
-  abilityText: '+1 Resource',
-  abilityTextIt: '+1 Risorsa',
+  abilityText: '',
+  abilityTextIt: '',
   colorTone: 'from-emerald-950/60 to-slate-900 border-emerald-600/40',
   iconName: 'Shield',
 };
@@ -27,8 +27,8 @@ export const MANDALORIAN_WARRIOR: CardTemplate = {
   attack: 2,
   resources: 0,
   force: 0,
-  abilityText: '+2 Attack',
-  abilityTextIt: '+2 Attacco',
+  abilityText: '',
+  abilityTextIt: '',
   colorTone: 'from-teal-950/60 to-emerald-950/60 border-teal-500/40',
   iconName: 'Crosshair',
 };
@@ -43,8 +43,8 @@ export const CREED_INITIATE: CardTemplate = {
   attack: 0,
   resources: 0,
   force: 1,
-  abilityText: '+1 Force toward Light Side / Mandalorian Honor',
-  abilityTextIt: '+1 Forza verso il Lato Chiaro / Onore Mandaloriano',
+  abilityText: '',
+  abilityTextIt: '',
   colorTone: 'from-cyan-950/60 to-emerald-950/60 border-cyan-500/40',
   iconName: 'Zap',
 };

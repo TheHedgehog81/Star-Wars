@@ -14,9 +14,9 @@ export const CLONE_CADET: CardTemplate = {
   attack: 0,
   resources: 1,
   force: 0,
-  abilityText: '+1 Resource',
-  abilityTextIt: '+1 Risorsa',
-  colorTone: 'from-amber-950/60 to-slate-900 border-amber-600/40',
+  abilityText: '',
+  abilityTextIt: '',
+  colorTone: 'from-[#4c0519]/80 to-slate-900 border-[#9F1D35]/50',
   iconName: 'Shield',
 };
 
@@ -30,9 +30,9 @@ export const CLONE_TROOPER_P1: CardTemplate = {
   attack: 2,
   resources: 0,
   force: 0,
-  abilityText: '+2 Attack',
-  abilityTextIt: '+2 Attacco',
-  colorTone: 'from-yellow-950/60 to-amber-950/60 border-amber-500/40',
+  abilityText: '',
+  abilityTextIt: '',
+  colorTone: 'from-[#5c071e]/80 to-[#3b0413]/70 border-[#9F1D35]/60',
   iconName: 'Crosshair',
 };
 
@@ -46,8 +46,8 @@ export const TEMPLE_PADAWAN: CardTemplate = {
   attack: 0,
   resources: 0,
   force: 1,
-  abilityText: '+1 Force toward Light Side',
-  abilityTextIt: '+1 Forza verso il Lato Chiaro',
+  abilityText: '',
+  abilityTextIt: '',
   colorTone: 'from-cyan-950/60 to-blue-950/60 border-cyan-400/40',
   iconName: 'Zap',
 };
@@ -459,9 +459,9 @@ export const OOM_PILOT_DROID: CardTemplate = {
   attack: 0,
   resources: 1,
   force: 0,
-  abilityText: '+1 Resource',
-  abilityTextIt: '+1 Risorsa',
-  colorTone: 'from-purple-950/60 to-slate-900 border-purple-600/40',
+  abilityText: '',
+  abilityTextIt: '',
+  colorTone: 'from-[#082f49]/80 to-slate-900 border-sky-600/50',
   iconName: 'Shield',
 };
 
@@ -475,9 +475,9 @@ export const B1_BATTLE_DROID: CardTemplate = {
   attack: 2,
   resources: 0,
   force: 0,
-  abilityText: '+2 Attack',
-  abilityTextIt: '+2 Attacco (Roger Roger!)',
-  colorTone: 'from-indigo-950/60 to-purple-950/60 border-indigo-500/40',
+  abilityText: '',
+  abilityTextIt: '',
+  colorTone: 'from-[#0c4a6e]/80 to-[#082f49]/70 border-sky-500/50',
   iconName: 'Crosshair',
 };
 
@@ -491,9 +491,9 @@ export const SEPARATIST_ACOLYTE: CardTemplate = {
   attack: 0,
   resources: 0,
   force: 1,
-  abilityText: '+1 Force toward Dark Side',
-  abilityTextIt: '+1 Forza verso il Lato Oscuro',
-  colorTone: 'from-red-950/60 to-purple-950/60 border-red-500/40',
+  abilityText: '',
+  abilityTextIt: '',
+  colorTone: 'from-[#082f49] via-[#041a2f] to-[#450a12] border-sky-600/50',
   iconName: 'Zap',
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap } from 'lucide-react';
+import { ForceStarWarsIcon } from './GameIcons';
 import { PlayableFaction } from '../types/game';
 import { FACTION_CONFIGS } from '../data/factions';
 import { FactionIcon } from './FactionIcon';
@@ -43,10 +43,10 @@ export const ForceTrack: React.FC<ForceTrackProps> = ({
       {/* Header labels */}
       <div className="flex items-center justify-between text-xs mb-2">
         <div className="flex items-center gap-1.5 font-bold tracking-wider text-cyan-400">
-          <FactionIcon faction={playerFaction} className="w-4 h-4" glow />
+          <FactionIcon faction={playerFaction} className="w-4 h-4" />
           <span>{leftName.toUpperCase()}</span>
           {forceBalance === -6 && (
-            <span className="ml-1 text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 px-1.5 py-0.5 rounded-full animate-pulse">
+            <span className="ml-1 text-[10px] bg-cyan-600 text-white border border-cyan-400 px-1.5 py-0.5 rounded font-bold">
               +1 {language === 'it' ? 'Risorsa' : 'Resource'}
             </span>
           )}
@@ -54,9 +54,9 @@ export const ForceTrack: React.FC<ForceTrackProps> = ({
 
         <div className="flex items-center gap-2">
           <span
-            className={`text-xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider border ${
+            className={`text-xs px-2.5 py-0.5 rounded font-bold uppercase tracking-wider border ${
               isForceWithPlayer
-                ? 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
+                ? 'bg-emerald-800 border-emerald-500 text-white'
                 : 'bg-slate-900 border-slate-700 text-slate-400'
             }`}
           >
@@ -72,39 +72,39 @@ export const ForceTrack: React.FC<ForceTrackProps> = ({
 
         <div className="flex items-center gap-1.5 font-bold tracking-wider text-red-400">
           {forceBalance === 6 && (
-            <span className="mr-1 text-[10px] bg-red-500/20 text-red-300 border border-red-500/40 px-1.5 py-0.5 rounded-full animate-pulse">
+            <span className="mr-1 text-[10px] bg-red-600 text-white border border-red-400 px-1.5 py-0.5 rounded font-bold">
               +1 {language === 'it' ? 'Risorsa' : 'Resource'}
             </span>
           )}
           <span>{rightName.toUpperCase()}</span>
-          {botFaction && <FactionIcon faction={botFaction} className="w-4 h-4" glow />}
+          {botFaction && <FactionIcon faction={botFaction} className="w-4 h-4" />}
         </div>
       </div>
 
       {/* Force Track Bar with Segments */}
-      <div className="relative flex items-center justify-between gap-1 bg-slate-900/90 p-1.5 rounded-lg border border-slate-800">
+      <div className="relative flex items-center justify-between gap-1 bg-slate-900 p-1.5 rounded border border-slate-800">
         {steps.map((val) => {
           const isMarker = val === forceBalance;
           const isPlayerSide = val < 0;
           const isBotSide = val > 0;
 
-          let slotBg = 'bg-slate-800/40 border-slate-700/50';
+          let slotBg = 'bg-slate-800/60 border-slate-700';
           if (isPlayerSide) {
             slotBg =
               val >= forceBalance && forceBalance < 0
-                ? 'bg-cyan-600/30 border-cyan-500/60 shadow-[0_0_8px_rgba(6,182,212,0.3)]'
-                : 'bg-cyan-950/20 border-cyan-900/30';
+                ? 'bg-cyan-700 border-cyan-400'
+                : 'bg-cyan-950/40 border-cyan-900';
           } else if (isBotSide) {
             slotBg =
               val <= forceBalance && forceBalance > 0
-                ? 'bg-red-600/30 border-red-500/60 shadow-[0_0_8px_rgba(239,68,68,0.3)]'
-                : 'bg-red-950/20 border-red-900/30';
+                ? 'bg-red-700 border-red-400'
+                : 'bg-red-950/40 border-red-900';
           }
 
           return (
             <div
               key={val}
-              className={`relative flex-1 h-7 rounded flex items-center justify-center border transition-all duration-300 ${slotBg}`}
+              className={`relative flex-1 h-7 rounded flex items-center justify-center border transition-all duration-200 ${slotBg}`}
             >
               {/* Value label */}
               <span
@@ -112,28 +112,28 @@ export const ForceTrack: React.FC<ForceTrackProps> = ({
                   isMarker
                     ? 'text-white'
                     : isPlayerSide
-                    ? 'text-cyan-400/60'
+                    ? 'text-cyan-200'
                     : isBotSide
-                    ? 'text-red-400/60'
-                    : 'text-slate-500'
+                    ? 'text-red-200'
+                    : 'text-slate-400'
                 }`}
               >
                 {val === 0 ? '0' : Math.abs(val)}
               </span>
 
-              {/* Active Force Marker Indicator */}
+              {/* Active Force Marker Indicator (Jedi Order icon) */}
               {isMarker && (
                 <div
                   id="force-track-marker"
-                  className={`absolute inset-0 m-auto w-6 h-6 rounded-full border-2 flex items-center justify-center shadow-lg transition-transform duration-300 scale-110 ${
+                  className={`absolute inset-0 m-auto w-6 h-6 rounded border-2 flex items-center justify-center transition-transform duration-200 scale-110 ${
                     isPlayerSide
-                      ? 'bg-cyan-500 border-white text-slate-950 shadow-[0_0_15px_rgba(6,182,212,0.8)]'
+                      ? 'bg-cyan-400 border-white text-slate-950 font-bold'
                       : isBotSide
-                      ? 'bg-red-500 border-white text-white shadow-[0_0_15px_rgba(239,68,68,0.8)]'
-                      : 'bg-amber-400 border-white text-slate-950 shadow-[0_0_15px_rgba(251,191,36,0.8)]'
+                      ? 'bg-red-600 border-white text-white font-bold'
+                      : 'bg-amber-400 border-white text-slate-950 font-bold'
                   }`}
                 >
-                  <Zap className="w-3.5 h-3.5 fill-current" />
+                  <ForceStarWarsIcon className="w-3.5 h-3.5" />
                 </div>
               )}
             </div>
@@ -158,8 +158,8 @@ export const ForceTrack: React.FC<ForceTrackProps> = ({
         </span>
         <span>
           {language === 'it'
-            ? 'Sposta a Destra: abilità del Bot →'
-            : 'Move Right: Bot abilities →'}
+            ? 'Sposta a Destra: abilità dell\'Avversario →'
+            : 'Move Right: Opponent abilities →'}
         </span>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, PlayableFaction } from '../types/game';
 import { CardView } from './CardView';
 import { OUTER_RIM_PILOT } from '../data/cards';
-import { ResourceCubeIcon, BlasterAttackIcon } from './GameIcons';
+import { ResourceSquareIcon, BlasterAttackIcon } from './GameIcons';
 import { Layers, Compass } from 'lucide-react';
 
 interface GalaxyRowProps {
@@ -61,12 +61,12 @@ export const GalaxyRow: React.FC<GalaxyRowProps> = ({
         {/* Player stats reminder badge */}
         {isPlayerTurn && (
           <div className="flex items-center gap-2 text-xs font-mono">
-            <span className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 px-2 py-0.5 rounded-full">
-              <ResourceCubeIcon className="w-3.5 h-3.5" glow />
+            <span className="flex items-center gap-1.5 bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded border border-amber-300">
+              <ResourceSquareIcon className="w-3.5 h-3.5" />
               <strong>{playerResources}</strong> {language === 'it' ? 'Risorse' : 'Credits'}
             </span>
-            <span className="flex items-center gap-1.5 bg-red-500/10 border border-red-500/30 text-red-400 px-2 py-0.5 rounded-full">
-              <BlasterAttackIcon className="w-3.5 h-3.5" glow />
+            <span className="flex items-center gap-1.5 bg-red-600 text-white font-bold px-2 py-0.5 rounded border border-red-500">
+              <BlasterAttackIcon className="w-3.5 h-3.5" />
               <strong>{playerAttack}</strong> {language === 'it' ? 'Attacco' : 'Attack'}
             </span>
           </div>
@@ -78,54 +78,42 @@ export const GalaxyRow: React.FC<GalaxyRowProps> = ({
         {/* Galaxy Deck Stack */}
         <div
           id="galaxy-deck-stack"
-          className="flex flex-col items-center justify-center w-24 sm:w-28 rounded-xl border-2 border-dashed border-slate-800 bg-slate-900/60 p-2 text-center select-none"
+          className="flex flex-col items-center justify-center w-24 sm:w-28 rounded-lg border-2 border-slate-700 bg-slate-900 p-2 text-center select-none flex-shrink-0"
         >
-          <Layers className="w-6 h-6 text-slate-600 mb-1" />
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+          <Layers className="w-7 h-7 text-slate-400 mb-2" />
+          <span className="text-[10px] font-bold text-slate-300 uppercase tracking-wider">
             {language === 'it' ? 'Mazzo Galassia' : 'Galaxy Deck'}
           </span>
-          <span className="text-lg font-mono font-black text-slate-300 mt-1">
+          <span className="text-xl font-mono font-black text-white mt-1">
             {galaxyDeckCount}
           </span>
         </div>
 
-        {/* Outer Rim Pilot Stack (Always purchasable) */}
-        <div
-          id="outer-rim-pilot-stack"
-          className="relative flex flex-col items-center justify-between w-32 sm:w-36 rounded-xl border-2 border-emerald-500/40 bg-gradient-to-b from-emerald-950/40 to-slate-950 p-2 text-center select-none shadow-lg"
-        >
-          <div className="flex items-center justify-between w-full text-[9px] font-bold uppercase text-emerald-300">
-            <span className="flex items-center gap-1">
-              <Compass className="w-3 h-3" />
-              {language === 'it' ? 'Pilota' : 'Pilot'}
-            </span>
-            <span className="bg-emerald-900/80 px-1 py-0.5 rounded text-emerald-200 font-mono">
-              x{outerRimPilotsCount}
-            </span>
-          </div>
-
-          <div className="my-1 text-left w-full bg-slate-950/60 p-1 rounded border border-emerald-900/40 text-[10px] text-slate-300">
-            <div className="font-bold text-emerald-200">
-              {language === 'it' ? "Pilota dell'Orlo" : 'Outer Rim Pilot'}
-            </div>
-            <div className="text-amber-300 font-mono text-[9px] mt-0.5">
-              +1 {language === 'it' ? 'Risorsa' : 'Credit'}
-            </div>
-          </div>
-
-          <button
-            id="btn-buy-outer-rim-pilot"
-            disabled={!isPlayerTurn || playerResources < 2 || outerRimPilotsCount <= 0}
-            onClick={onBuyPilot}
-            className={`w-full py-1.5 px-2 rounded-lg font-bold text-[10px] uppercase tracking-wider transition flex items-center justify-center gap-1 shadow ${
-              isPlayerTurn && playerResources >= 2 && outerRimPilotsCount > 0
-                ? 'bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-[0_0_10px_rgba(251,191,36,0.3)] active:scale-95'
-                : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
-            }`}
+        {/* Outer Rim Pilot Stack (Always purchasable, exact same card template & dimension) */}
+        <div id="outer-rim-pilot-stack" className="relative flex-shrink-0">
+          {/* Stack count badge */}
+          <div
+            className="absolute -top-2.5 -right-2 z-20 px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 border-2 border-slate-950 text-[11px] font-mono font-black shadow-lg flex items-center gap-1"
+            title={`${outerRimPilotsCount} ${language === 'it' ? 'Piloti rimanenti nella riserva' : 'Pilots left in supply'}`}
           >
-            <ResourceCubeIcon className="w-3.5 h-3.5" glow />
-            <span>2 {language === 'it' ? 'Risorse' : 'Credits'}</span>
-          </button>
+            <Compass className="w-3.5 h-3.5 text-slate-950" />
+            <span>x{outerRimPilotsCount}</span>
+          </div>
+
+          <CardView
+            card={dummyPilotCard}
+            language={language}
+            location="galaxy"
+            isAffordable={isPlayerTurn && playerResources >= dummyPilotCard.cost && outerRimPilotsCount > 0}
+            onBuy={onBuyPilot}
+            onInspect={() => onInspectCard(dummyPilotCard)}
+          />
+
+          {outerRimPilotsCount <= 0 && (
+            <div className="absolute inset-0 z-30 bg-black/85 rounded-lg flex flex-col items-center justify-center text-red-400 font-bold text-xs uppercase tracking-wider p-2 text-center">
+              <span>{language === 'it' ? 'Esaurito' : 'Sold Out'}</span>
+            </div>
+          )}
         </div>
 
         {/* Vertical subtle divider */}

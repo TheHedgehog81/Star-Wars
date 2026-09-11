@@ -25,8 +25,10 @@ import {
   useActiveBaseAbility,
   selectReplacementBase,
   endTurn,
+  exileOuterRimPilot,
+  useJabbaBribe,
 } from './logic/gameEngine';
-import { executeBotTurn } from './logic/botAi';
+import { executeBotTurn, chooseBotReplacementBase } from './logic/botAi';
 import { sounds } from './audio/soundEffects';
 import { FACTION_CONFIGS } from './data/factions';
 
@@ -40,6 +42,7 @@ import { RulesModal } from './components/RulesModal';
 import { GameLogModal } from './components/GameLogModal';
 import { BaseSelectModal } from './components/BaseSelectModal';
 import { CardInspectorModal } from './components/CardInspectorModal';
+import { CardDatabaseModal } from './components/CardDatabaseModal';
 import { VictoryModal } from './components/VictoryModal';
 import { FactionIcon } from './components/FactionIcon';
 
@@ -52,6 +55,7 @@ import {
   RotateCcw,
   Sparkles,
   ShieldAlert,
+  Layers,
 } from 'lucide-react';
 
 const DEFAULT_SETTINGS: GameSettings = {
@@ -78,6 +82,7 @@ export default function App() {
   const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
   const [showRulesModal, setShowRulesModal] = useState<boolean>(false);
   const [showLogModal, setShowLogModal] = useState<boolean>(false);
+  const [showCardDatabaseModal, setShowCardDatabaseModal] = useState<boolean>(false);
   const [inspectingCard, setInspectingCard] = useState<Card | null>(null);
   const [inspectingBase, setInspectingBase] = useState<Base | null>(null);
   const [isBotThinking, setIsBotThinking] = useState<boolean>(false);
@@ -114,8 +119,42 @@ export default function App() {
 
   const humanConfig = FACTION_CONFIGS[humanFaction];
 
-  // Bot Turn Trigger Watcher
+  // Bot Turn Trigger Watcher & Automatic Base Replacement Watcher
   useEffect(() => {
+    // 1. Bot needs to choose a replacement base (e.g. after human destroys it)
+    if (
+      gameState.phase === 'base_selection' &&
+      gameState.pendingBaseSelectionPlayer === botFaction &&
+      !isBotThinking &&
+      !botTurnRunningRef.current &&
+      !gameState.winner
+    ) {
+      botTurnRunningRef.current = true;
+      setIsBotThinking(true);
+
+      const timer = setTimeout(() => {
+        try {
+          const bot = players[botFaction];
+          if (bot) {
+            const chosenBaseId = chooseBotReplacementBase(gameState, bot, gameState.settings.difficulty);
+            if (chosenBaseId) {
+              const res = selectReplacementBase(gameState, botFaction, chosenBaseId, players);
+              setGameState(res.state);
+              setPlayers(res.players);
+            }
+          }
+        } catch (err) {
+          console.error('Bot base selection error:', err);
+        } finally {
+          setIsBotThinking(false);
+          botTurnRunningRef.current = false;
+        }
+      }, 250);
+
+      return () => clearTimeout(timer);
+    }
+
+    // 2. Normal Bot Turn execution (rapid, decisive)
     if (
       gameState.currentTurn === botFaction &&
       gameState.phase === 'action' &&
@@ -135,7 +174,7 @@ export default function App() {
               setGameState(intermediateState);
               setPlayers(intermediatePlayers);
             },
-            600
+            180 // Fast 180ms delay between actions
           );
           setGameState(res.state);
           setPlayers(res.players);
@@ -145,13 +184,14 @@ export default function App() {
           setIsBotThinking(false);
           botTurnRunningRef.current = false;
         }
-      }, 700);
+      }, 300); // 300ms reaction time instead of 700ms
 
       return () => clearTimeout(timer);
     }
   }, [
     gameState.currentTurn,
     gameState.phase,
+    gameState.pendingBaseSelectionPlayer,
     botFaction,
     isBotThinking,
     gameState.winner,
@@ -228,6 +268,24 @@ export default function App() {
     }
   };
 
+  const handleExileOuterRimPilot = (instanceId: string, source: 'hand' | 'inPlay') => {
+    if (!isHumanTurn) return;
+    const res = exileOuterRimPilot(gameState, humanFaction, instanceId, source, players);
+    if (res) {
+      setGameState(res.state);
+      setPlayers(res.players);
+    }
+  };
+
+  const handleUseJabbaBribe = () => {
+    if (!isHumanTurn) return;
+    const res = useJabbaBribe(gameState, humanFaction, players);
+    if (res) {
+      setGameState(res.state);
+      setPlayers(res.players);
+    }
+  };
+
   const handleEndTurn = () => {
     if (!isHumanTurn) return;
     const res = endTurn(gameState, humanFaction, players);
@@ -271,15 +329,15 @@ export default function App() {
                 humanConfig?.badgeColor || 'bg-slate-900 border-slate-700 text-slate-300'
               }`}
             >
-              <FactionIcon faction={humanFaction} className="w-5 h-5" glow />
+              <FactionIcon faction={humanFaction} className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="font-black text-sm sm:text-base tracking-wider uppercase text-slate-100 font-display">
                   Star Wars: Deckbuilding
                 </h1>
-                <span className="text-[10px] font-mono uppercase bg-amber-400/20 text-amber-300 border border-amber-400/30 px-1.5 py-0.5 rounded">
-                  vs Bot AI
+                <span className="text-[10px] font-mono uppercase bg-slate-800/80 text-slate-300 border border-slate-700 px-1.5 py-0.5 rounded">
+                  {settings.language === 'it' ? 'vs Avversario' : 'vs Opponent'}
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 leading-none mt-0.5">
@@ -314,14 +372,27 @@ export default function App() {
                     ? 'È il Tuo Turno!'
                     : 'Your Turn!'
                   : settings.language === 'it'
-                  ? 'Turno del Bot...'
-                  : 'Bot is playing...'}
+                  ? 'Turno dell\'Avversario...'
+                  : 'Opponent is playing...'}
               </span>
             </div>
           </div>
 
           {/* Right Action Icons */}
           <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Card Archive Button */}
+            <button
+              id="btn-nav-cards-archive"
+              onClick={() => setShowCardDatabaseModal(true)}
+              className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-300 border border-slate-800 transition flex items-center gap-1.5 text-xs cursor-pointer shadow-sm"
+              title={settings.language === 'it' ? 'Archivio Carte per Fazione' : 'Cards by Faction'}
+            >
+              <Layers className="w-4 h-4 text-amber-400" />
+              <span className="hidden sm:inline font-bold">
+                {settings.language === 'it' ? 'Archivio' : 'Cards'}
+              </span>
+            </button>
+
             {/* Rules Button */}
             <button
               id="btn-nav-rules"
@@ -461,6 +532,8 @@ export default function App() {
             onUseBaseAbility={handleUseBaseAbility}
             onEndTurn={handleEndTurn}
             onInspectCard={(card) => setInspectingCard(card)}
+            onExileOuterRimPilot={handleExileOuterRimPilot}
+            onUseJabbaBribe={handleUseJabbaBribe}
           />
         )}
       </main>
@@ -474,7 +547,16 @@ export default function App() {
         onStartGame={startNewGame}
       />
 
-      {/* 2. Rules Guide Modal */}
+      {/* 2. Card Database / Archive Modal */}
+      {showCardDatabaseModal && (
+        <CardDatabaseModal
+          isOpen={showCardDatabaseModal}
+          language={settings.language}
+          onClose={() => setShowCardDatabaseModal(false)}
+        />
+      )}
+
+      {/* 3. Rules Guide Modal */}
       {showRulesModal && (
         <RulesModal
           language={settings.language}

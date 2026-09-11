@@ -58,6 +58,25 @@ export interface Base {
   colorTone: string;
 }
 
+export interface DeckCardEntry {
+  template: CardTemplate;
+  quantity: number;
+}
+
+export interface DeckBundle {
+  id: string;
+  name: string;
+  nameIt: string;
+  faction: Faction;
+  category: 'starter' | 'galaxy' | 'base' | 'fleet' | 'pilots';
+  description: string;
+  descriptionIt: string;
+  totalCards: number;
+  sheetSource?: string;
+  cards: DeckCardEntry[];
+  bases?: Base[];
+}
+
 export interface PlayerState {
   faction: PlayableFaction;
   isHuman: boolean;

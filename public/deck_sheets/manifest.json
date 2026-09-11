@@ -1,0 +1,294 @@
+{
+  "updatedAt": "2026-09-11",
+  "totalSheets": 29,
+  "storageDirectory": "/deck_sheets",
+  "sheets": [
+    {
+      "name": "IR_ForzaTrack",
+      "filename": "IR_ForzaTrack.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129065188393/F54092F923F8BA59AC13E93874F92CE5C62DDC4B/",
+      "era": "IR",
+      "category": "ForzaTrack",
+      "dimensions": "1382x4107",
+      "sizeMb": 11.82
+    },
+    {
+      "name": "SR_ForzaTrack",
+      "filename": "SR_ForzaTrack.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129065207212/5A5DF1FB7E5B591D9C33802D41319952F89E9CB9/",
+      "era": "SR",
+      "category": "ForzaTrack",
+      "dimensions": "1366x4110",
+      "sizeMb": 11.51
+    },
+    {
+      "name": "N_ForzaTrack",
+      "filename": "N_ForzaTrack.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129062042326/F910CC37D408BDA26635D7021009FF7EB8CB5621/",
+      "era": "N",
+      "category": "ForzaTrack",
+      "dimensions": "1394x4112",
+      "sizeMb": 12.16
+    },
+    {
+      "name": "IR_Starter_I",
+      "filename": "IR_Starter_I.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2020465330534565906/47163B49174B08D1E99E6FE30C4CDB926D49B272/",
+      "era": "IR",
+      "category": "Starter",
+      "faction": "I",
+      "dimensions": "4096x2316",
+      "sizeMb": 2.7
+    },
+    {
+      "name": "IR_Starter_R",
+      "filename": "IR_Starter_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2020465330532081711/642233457CE5DE47DD58DF91EECC286F955CC6B3/",
+      "era": "IR",
+      "category": "Starter",
+      "faction": "R",
+      "dimensions": "4096x2316",
+      "sizeMb": 2.63
+    },
+    {
+      "name": "IR_Basi_I",
+      "filename": "IR_Basi_I.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2020465330532320302/59D891D30524BB027ED1C986DA9C1292B5BB7902/",
+      "era": "IR",
+      "category": "Basi",
+      "faction": "I",
+      "dimensions": "4096x1160",
+      "sizeMb": 3.13
+    },
+    {
+      "name": "IR_Basi_R",
+      "filename": "IR_Basi_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2020465330532317139/7E145F9BC705944C6FBB62CAFB9F732D81627A78/",
+      "era": "IR",
+      "category": "Basi",
+      "faction": "R",
+      "dimensions": "4096x1160",
+      "sizeMb": 2.93
+    },
+    {
+      "name": "IR_Flotta_I",
+      "filename": "IR_Flotta_I.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129064501288/980CDEB91F0D7C8D57E5D7C2B94D5C80174AD518/",
+      "era": "IR",
+      "category": "Flotta",
+      "faction": "I",
+      "dimensions": "4096x2896",
+      "sizeMb": 15.04
+    },
+    {
+      "name": "IR_Flotta_R",
+      "filename": "IR_Flotta_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129064706729/D78EC09A31F29A29E331A6350E2776F0EB7811E1/",
+      "era": "IR",
+      "category": "Flotta",
+      "faction": "R",
+      "dimensions": "4096x3862",
+      "sizeMb": 26.37
+    },
+    {
+      "name": "IR_Flotta_N",
+      "filename": "IR_Flotta_N.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129064757972/45D7FCCBA9A8C5DEC85253613B9F21A932A70321/",
+      "era": "IR",
+      "category": "Flotta",
+      "faction": "N",
+      "dimensions": "4096x2896",
+      "sizeMb": 15.82
+    },
+    {
+      "name": "IR_PilotiEsterni_N",
+      "filename": "IR_PilotiEsterni_N.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2020465330532261585/BD8FA9E4684FBF7D440A62B52747D3EE421BC6CF/",
+      "era": "IR",
+      "category": "PilotiEsterni",
+      "faction": "N",
+      "dimensions": "4096x2316",
+      "sizeMb": 1.46
+    },
+    {
+      "name": "IR_Mazzo_I",
+      "filename": "IR_Mazzo_I.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129065340212/FE89CC404725CC085A26C911AF352B9FC0F4031A/",
+      "era": "IR",
+      "category": "Mazzo",
+      "faction": "I",
+      "dimensions": "4096x3862",
+      "sizeMb": 24.69
+    },
+    {
+      "name": "IR_Mazzo_R",
+      "filename": "IR_Mazzo_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129065624794/5749D9570131B06710FF2FBD68EDB06CF7E7FE73/",
+      "era": "IR",
+      "category": "Mazzo",
+      "faction": "R",
+      "dimensions": "4096x3862",
+      "sizeMb": 30.36
+    },
+    {
+      "name": "IR_Mazzo_N",
+      "filename": "IR_Mazzo_N.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2020465330535871872/461EF02D04B653625C8F349797E1719A2F56CEB9/",
+      "era": "IR",
+      "category": "Mazzo",
+      "faction": "N",
+      "dimensions": "4096x4054",
+      "sizeMb": 6.77
+    },
+    {
+      "name": "SR_Starter_S",
+      "filename": "SR_Starter_S.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2395440094933221970/FAF0257728646389F39D03DDBDDA4D18ACD41813/",
+      "era": "SR",
+      "category": "Starter",
+      "faction": "S",
+      "dimensions": "4096x2342",
+      "sizeMb": 8.7
+    },
+    {
+      "name": "SR_Starter_R",
+      "filename": "SR_Starter_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2395440094933219172/6BAE02E79E4DD0BE2786BFF6504758BC8F4F671C/",
+      "era": "SR",
+      "category": "Starter",
+      "faction": "R",
+      "dimensions": "4096x2342",
+      "sizeMb": 9.63
+    },
+    {
+      "name": "SR_Basi_S",
+      "filename": "SR_Basi_S.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2395440094933234043/BBB232C1F6B0A0C8B1CDE1B5677505234215F167/",
+      "era": "SR",
+      "category": "Basi",
+      "faction": "S",
+      "dimensions": "4096x1158",
+      "sizeMb": 11.14
+    },
+    {
+      "name": "SR_Basi_R",
+      "filename": "SR_Basi_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2395440094933238750/637E40EBB3937BB631AF50665990051EA8A8C9D8/",
+      "era": "SR",
+      "category": "Basi",
+      "faction": "R",
+      "dimensions": "4096x1148",
+      "sizeMb": 10.83
+    },
+    {
+      "name": "SR_Flotta_S",
+      "filename": "SR_Flotta_S.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129064558538/09D3958275F4584ACFB32CBEF6503E80D54A4847/",
+      "era": "SR",
+      "category": "Flotta",
+      "faction": "S",
+      "dimensions": "4096x2926",
+      "sizeMb": 13.87
+    },
+    {
+      "name": "SR_Flotta_R",
+      "filename": "SR_Flotta_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129064594737/9692FA7F4A3409188DF76EB31ABDD06D7F7040CF/",
+      "era": "SR",
+      "category": "Flotta",
+      "faction": "R",
+      "dimensions": "4096x3902",
+      "sizeMb": 25.6
+    },
+    {
+      "name": "SR_Flotta_N",
+      "filename": "SR_Flotta_N.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2478760129064789182/811581E476F7C957FB91F7C6E183D08E12AD51C9/",
+      "era": "SR",
+      "category": "Flotta",
+      "faction": "N",
+      "dimensions": "4096x2926",
+      "sizeMb": 16.9
+    },
+    {
+      "name": "SR_PilotiEsterni_N",
+      "filename": "SR_PilotiEsterni_N.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2395440094933212304/7873845D06546D0BAFECF71FF399C1060497B9D4/",
+      "era": "SR",
+      "category": "PilotiEsterni",
+      "faction": "N",
+      "dimensions": "4096x2290",
+      "sizeMb": 5.14
+    },
+    {
+      "name": "SR_Mazzo_S",
+      "filename": "SR_Mazzo_S.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2394314828581900843/A3A99B20AB2360F38531375EF80B5092A59FFEFB/",
+      "era": "SR",
+      "category": "Mazzo",
+      "faction": "S",
+      "dimensions": "4096x3902",
+      "sizeMb": 22.02
+    },
+    {
+      "name": "SR_Mazzo_R",
+      "filename": "SR_Mazzo_R.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2394314828581898036/EADD59AC7EC94943E7691504D6DF4CB02EADFF5C/",
+      "era": "SR",
+      "category": "Mazzo",
+      "faction": "R",
+      "dimensions": "4096x3902",
+      "sizeMb": 28.33
+    },
+    {
+      "name": "SR_Mazzo_N",
+      "filename": "SR_Mazzo_N.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2394314828581893289/40BFCF5C0F098C9C61DEC1B29C815729BD7C0014/",
+      "era": "SR",
+      "category": "Mazzo",
+      "faction": "N",
+      "dimensions": "4096x3902",
+      "sizeMb": 30.66
+    },
+    {
+      "name": "M_Starter_M",
+      "filename": "M_Starter_M.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/12849929001312559686/89AFA0E6AC30BD02B4BC134FF015AABB3C624E14/",
+      "era": "M",
+      "category": "Starter",
+      "faction": "M",
+      "dimensions": "4096x3888",
+      "sizeMb": 19.15
+    },
+    {
+      "name": "M_Basi_M",
+      "filename": "M_Basi_M.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/9828589972255627707/7D6457E30B5D4D96B1F3CEAEDAD1CEEA516E1A40/",
+      "era": "M",
+      "category": "Basi",
+      "faction": "M",
+      "dimensions": "4096x1152",
+      "sizeMb": 10.03
+    },
+    {
+      "name": "M_Flotta_M",
+      "filename": "M_Flotta_M.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/14308348299499297684/B18640BF594017FCAAEA0A1A56BD555EF58DB013/",
+      "era": "M",
+      "category": "Flotta",
+      "faction": "M",
+      "dimensions": "2878x4096",
+      "sizeMb": 15.22
+    },
+    {
+      "name": "M_Mazzo_M",
+      "filename": "M_Mazzo_M.png",
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/16519766786646648971/6C34651B60D6CB1E8C4C715F3B5A0F9796448724/",
+      "era": "M",
+      "category": "Mazzo",
+      "faction": "M",
+      "dimensions": "4096x2916",
+      "sizeMb": 27.22
+    }
+  ]
+}

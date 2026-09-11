@@ -96,8 +96,8 @@ export function createInitialPlayerState(
       ? `Comandante ${config.shortNameIt}`
       : `${config.shortName} Commander`
     : language === 'it'
-    ? `Bot ${config.shortNameIt}`
-    : `${config.shortName} Bot`;
+    ? `Avversario (${config.shortNameIt})`
+    : `Opponent (${config.shortName})`;
 
   return {
     faction,
@@ -319,6 +319,21 @@ export function playCard(
     updatedPlayer.activeBase = healedBase;
   }
 
+  // Direct Bomber Damage (Y-Wing / TIE Bomber deals 2 direct damage to enemy base)
+  let bomberDesc = '';
+  let bomberDescIt = '';
+  const opponentFaction = getOpponentFaction(state, playerFaction);
+  let defender = players[opponentFaction] ? { ...players[opponentFaction] } : null;
+
+  if ((card.id === 'reb_y_wing' || card.id === 'emp_tie_bomber') && defender) {
+    const directDmg = 2;
+    const newBaseHp = Math.max(0, defender.activeBase.currentHp - directDmg);
+    defender.activeBase = { ...defender.activeBase, currentHp: newBaseHp };
+    bomberDesc = ` [Direct bombing: 2 damage to enemy Base!]`;
+    bomberDescIt = ` [Bombardamento diretto: 2 danni alla Base nemica!]`;
+    sounds.playExplosion();
+  }
+
   // Capital Ship vs Unit destination
   if (card.type === 'capital_ship') {
     updatedPlayer.fleet = [...updatedPlayer.fleet, card];
@@ -332,8 +347,8 @@ export function playCard(
     state.turnNumber,
     playerFaction,
     updatedPlayer.name,
-    `Played ${card.name}.${bonusDesc}`,
-    `Ha giocato ${card.nameIt}.${bonusDescIt}`,
+    `Played ${card.name}.${bonusDesc}${bomberDesc}`,
+    `Ha giocato ${card.nameIt}.${bonusDescIt}${bomberDescIt}`,
     'play'
   );
 
@@ -346,6 +361,7 @@ export function playCard(
     players: {
       ...players,
       [playerFaction]: updatedPlayer,
+      ...(defender ? { [opponentFaction]: defender } : {}),
     },
   };
 }
@@ -749,6 +765,113 @@ export function selectReplacementBase(
       ...state,
       phase: 'action',
       pendingBaseSelectionPlayer: null,
+      logs: [newLog, ...state.logs],
+    },
+    players: {
+      ...players,
+      [playerFaction]: current,
+    },
+  };
+}
+
+// Exile Outer Rim Pilot special rule (Star Wars: The Deckbuilding Game)
+// Official rule: Exiling the Outer Rim Pilot moves The Force 2 toward the player's side,
+// and the pilot returns to the Outer Rim Pilots deck instead of being permanently removed!
+export function exileOuterRimPilot(
+  state: GameState,
+  playerFaction: PlayableFaction,
+  instanceId: string,
+  source: 'hand' | 'inPlay',
+  players: PlayersMap
+): { state: GameState; players: PlayersMap } | null {
+  const current = { ...players[playerFaction] };
+  if (!current) return null;
+
+  let cardFound = false;
+  if (source === 'hand') {
+    const idx = current.hand.findIndex((c) => c.instanceId === instanceId && c.id === 'neu_outer_rim_pilot');
+    if (idx !== -1) {
+      cardFound = true;
+      current.hand = current.hand.filter((c) => c.instanceId !== instanceId);
+    }
+  } else {
+    const idx = current.inPlay.findIndex((c) => c.instanceId === instanceId && c.id === 'neu_outer_rim_pilot');
+    if (idx !== -1) {
+      cardFound = true;
+      current.inPlay = current.inPlay.filter((c) => c.instanceId !== instanceId);
+    }
+  }
+
+  if (!cardFound) return null;
+
+  // Move Force 1 toward player per official rules
+  let newForceBalance = state.forceBalance;
+  if (playerFaction === state.settings.playerFaction) {
+    newForceBalance = Math.max(-6, newForceBalance - 1);
+    sounds.playForce('light');
+  } else {
+    newForceBalance = Math.min(6, newForceBalance + 1);
+    sounds.playForce('dark');
+  }
+
+  // Returns to Outer Rim Pilots deck
+  const newPilotsCount = state.outerRimPilotsCount + 1;
+
+  const newLog = createLog(
+    state.turnNumber,
+    playerFaction,
+    current.name,
+    `Exiled Outer Rim Pilot: gained +1 Force! Pilot returned to Outer Rim Pilots deck.`,
+    `Ha esiliato il Pilota dell'Orlo Esterno: +1 Forza! Il pilota ritorna nel mazzo Piloti dell'Orlo Esterno.`,
+    'ability'
+  );
+
+  return {
+    state: {
+      ...state,
+      forceBalance: newForceBalance,
+      outerRimPilotsCount: newPilotsCount,
+      logs: [newLog, ...state.logs],
+    },
+    players: {
+      ...players,
+      [playerFaction]: current,
+    },
+  };
+}
+
+// Jabba the Hutt bribe ability: spend 2 Resources to move Force 2 toward your side
+export function useJabbaBribe(
+  state: GameState,
+  playerFaction: PlayableFaction,
+  players: PlayersMap
+): { state: GameState; players: PlayersMap } | null {
+  const current = { ...players[playerFaction] };
+  if (!current || current.resources < 2) return null;
+
+  current.resources -= 2;
+  let newForceBalance = state.forceBalance;
+  if (playerFaction === state.settings.playerFaction) {
+    newForceBalance = Math.max(-6, newForceBalance - 2);
+    sounds.playForce('light');
+  } else {
+    newForceBalance = Math.min(6, newForceBalance + 2);
+    sounds.playForce('dark');
+  }
+
+  const newLog = createLog(
+    state.turnNumber,
+    playerFaction,
+    current.name,
+    `Jabba the Hutt bribe: spent 2 Resources to move Force 2!`,
+    `Abilità Jabba the Hutt: spese 2 Risorse per spostare la Forza di 2!`,
+    'ability'
+  );
+
+  return {
+    state: {
+      ...state,
+      forceBalance: newForceBalance,
       logs: [newLog, ...state.logs],
     },
     players: {

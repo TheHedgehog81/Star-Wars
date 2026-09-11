@@ -79,7 +79,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
               winnerConfig?.badgeColor || 'bg-slate-900 border-slate-700 text-slate-200'
             }`}
           >
-            <FactionIcon faction={winner} className="w-10 h-10" glow />
+            <FactionIcon faction={winner} className="w-10 h-10" />
           </div>
         </div>
 

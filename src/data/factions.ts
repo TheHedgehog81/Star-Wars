@@ -52,12 +52,12 @@ export const FACTION_CONFIGS: Record<PlayableFaction, FactionConfig> = {
     alignment: 'light',
     defaultOpponent: 'empire',
     defaultRival: 'empire',
-    badgeBg: 'bg-blue-950/80',
-    badgeBorder: 'border-blue-500/40',
-    badgeText: 'text-blue-400',
-    badgeColor: 'bg-blue-950/80 border-blue-500/50 text-blue-300',
-    accentColor: '#3b82f6',
-    themeGradient: 'from-blue-950/80 via-slate-900 to-black',
+    badgeBg: 'bg-[#4a1c24]',
+    badgeBorder: 'border-rose-400/50',
+    badgeText: 'text-rose-200',
+    badgeColor: 'bg-[#4a1c24] border-rose-400/50 text-rose-200',
+    accentColor: '#8a3541',
+    themeGradient: 'from-[#4a1c24] via-stone-900 to-black',
     iconName: 'Sparkles',
   },
   empire: {
@@ -81,12 +81,12 @@ export const FACTION_CONFIGS: Record<PlayableFaction, FactionConfig> = {
     alignment: 'dark',
     defaultOpponent: 'rebel',
     defaultRival: 'rebel',
-    badgeBg: 'bg-red-950/80',
-    badgeBorder: 'border-red-500/40',
-    badgeText: 'text-red-400',
-    badgeColor: 'bg-red-950/80 border-red-500/50 text-red-300',
-    accentColor: '#ef4444',
-    themeGradient: 'from-red-950/80 via-zinc-900 to-black',
+    badgeBg: 'bg-[#1c2c3d]',
+    badgeBorder: 'border-sky-400/50',
+    badgeText: 'text-sky-200',
+    badgeColor: 'bg-[#1c2c3d] border-sky-400/50 text-sky-200',
+    accentColor: '#36516e',
+    themeGradient: 'from-[#1c2c3d] via-slate-900 to-black',
     iconName: 'Flame',
   },
   mandalorian: {
@@ -110,12 +110,12 @@ export const FACTION_CONFIGS: Record<PlayableFaction, FactionConfig> = {
     alignment: 'clan',
     defaultOpponent: 'empire',
     defaultRival: 'empire',
-    badgeBg: 'bg-emerald-950/80',
-    badgeBorder: 'border-emerald-500/40',
-    badgeText: 'text-emerald-400',
-    badgeColor: 'bg-emerald-950/80 border-emerald-500/50 text-emerald-300',
-    accentColor: '#10b981',
-    themeGradient: 'from-emerald-950/80 via-teal-950 to-slate-950',
+    badgeBg: 'bg-[#1c3527]',
+    badgeBorder: 'border-emerald-500/50',
+    badgeText: 'text-emerald-200',
+    badgeColor: 'bg-[#1c3527] border-emerald-500/50 text-emerald-200',
+    accentColor: '#37624b',
+    themeGradient: 'from-[#1c3527] via-slate-900 to-black',
     iconName: 'Shield',
   },
   republic: {
@@ -139,12 +139,12 @@ export const FACTION_CONFIGS: Record<PlayableFaction, FactionConfig> = {
     alignment: 'light',
     defaultOpponent: 'separatist',
     defaultRival: 'separatist',
-    badgeBg: 'bg-amber-950/80',
-    badgeBorder: 'border-amber-500/40',
-    badgeText: 'text-amber-400',
-    badgeColor: 'bg-amber-950/80 border-amber-500/50 text-amber-300',
-    accentColor: '#f59e0b',
-    themeGradient: 'from-amber-950/80 via-yellow-950/40 to-slate-950',
+    badgeBg: 'bg-[#421925]',
+    badgeBorder: 'border-rose-400/50',
+    badgeText: 'text-rose-200',
+    badgeColor: 'bg-[#421925] border-rose-400/50 text-rose-200',
+    accentColor: '#6f2e3e',
+    themeGradient: 'from-[#421925] via-slate-900 to-black',
     iconName: 'Swords',
   },
   separatist: {
@@ -168,12 +168,12 @@ export const FACTION_CONFIGS: Record<PlayableFaction, FactionConfig> = {
     alignment: 'dark',
     defaultOpponent: 'republic',
     defaultRival: 'republic',
-    badgeBg: 'bg-purple-950/80',
-    badgeBorder: 'border-purple-500/40',
-    badgeText: 'text-purple-400',
-    badgeColor: 'bg-purple-950/80 border-purple-500/50 text-purple-300',
-    accentColor: '#a855f7',
-    themeGradient: 'from-purple-950/80 via-indigo-950 to-slate-950',
+    badgeBg: 'bg-[#183446]',
+    badgeBorder: 'border-sky-400/50',
+    badgeText: 'text-sky-200',
+    badgeColor: 'bg-[#183446] border-sky-400/50 text-sky-200',
+    accentColor: '#2b5874',
+    themeGradient: 'from-[#183446] via-slate-900 to-black',
     iconName: 'Zap',
   },
 };
@@ -187,3 +187,81 @@ export const ALL_PLAYABLE_FACTIONS: PlayableFaction[] = [
 ];
 
 export const PLAYABLE_FACTIONS = ALL_PLAYABLE_FACTIONS;
+
+/**
+ * Spartan solid monocolor styles for cards and bases (no gradients, no glow, pure flat 2D)
+ * - Ribelli: Rosso carminio tenue (#6b2a34) (invertito con Impero per richiesta utente)
+ * - Impero: Blu ardesia tenue (#2b3e54) (invertito con Ribelli per richiesta utente)
+ * - Repubblica: Amaranto tenue (#5e2533)
+ * - Neutrali: Grigio tenue (#39424e)
+ * - Separatisti: Azzurro tenue (#24465c)
+ * - Mandaloriani: Verde salvia tenue (#284a36)
+ */
+export function getFactionSolidCardStyle(faction: string): {
+  bg: string;
+  border: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+  accentHex: string;
+} {
+  switch (faction) {
+    case 'rebel':
+      // Ribelli: Rosso carminio tenue (invertito con Impero)
+      return {
+        bg: 'bg-[#6b2a34]',
+        border: 'border-[#451820]',
+        badgeBg: 'bg-[#3b141b]',
+        badgeText: 'text-rose-100',
+        badgeBorder: 'border-rose-400/60',
+        accentHex: '#80323e',
+      };
+    case 'empire':
+      // Impero: Blu tenue (invertito con Ribelli)
+      return {
+        bg: 'bg-[#2b3e54]',
+        border: 'border-[#182535]',
+        badgeBg: 'bg-[#151f2c]',
+        badgeText: 'text-sky-100',
+        badgeBorder: 'border-sky-400/60',
+        accentHex: '#354c66',
+      };
+    case 'republic':
+      return {
+        bg: 'bg-[#5e2533]',
+        border: 'border-[#3a141e]',
+        badgeBg: 'bg-[#2e1017]',
+        badgeText: 'text-rose-100',
+        badgeBorder: 'border-rose-300/60',
+        accentHex: '#733040',
+      };
+    case 'separatist':
+      return {
+        bg: 'bg-[#24465c]',
+        border: 'border-[#152a37]',
+        badgeBg: 'bg-[#0f1e28]',
+        badgeText: 'text-sky-100',
+        badgeBorder: 'border-sky-300/60',
+        accentHex: '#2d546e',
+      };
+    case 'mandalorian':
+      return {
+        bg: 'bg-[#284a36]',
+        border: 'border-[#172e21]',
+        badgeBg: 'bg-[#112117]',
+        badgeText: 'text-emerald-100',
+        badgeBorder: 'border-emerald-300/60',
+        accentHex: '#335b43',
+      };
+    case 'neutral':
+    default:
+      return {
+        bg: 'bg-[#39424e]',
+        border: 'border-[#222830]',
+        badgeBg: 'bg-[#1a1f26]',
+        badgeText: 'text-slate-200',
+        badgeBorder: 'border-slate-400/60',
+        accentHex: '#4d5867',
+      };
+  }
+}

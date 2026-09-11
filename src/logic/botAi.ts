@@ -76,7 +76,7 @@ export async function executeBotTurn(
   currentState: GameState,
   currentPlayers: PlayersMap,
   onStep?: (state: GameState, players: PlayersMap) => void,
-  stepDelayMs: number = 450
+  stepDelayMs: number = 180
 ): Promise<{ state: GameState; players: PlayersMap }> {
   let state = currentState;
   let players = currentPlayers;
@@ -118,9 +118,9 @@ export async function executeBotTurn(
   }
 
   // STEP 2: Play cards strategically
-  // Sort hand: play Force cards first to activate Force threshold on other cards, then Capital ships, then units
   bot = players[botFaction];
-  while (bot && bot.hand.length > 0) {
+  let handSafety = 20;
+  while (bot && bot.hand.length > 0 && handSafety-- > 0) {
     const forceCards = bot.hand.filter((c) => c.force > 0);
     const capitalShips = bot.hand.filter((c) => c.type === 'capital_ship');
     const resourceCards = bot.hand.filter((c) => c.resources > 0);
@@ -131,10 +131,16 @@ export async function executeBotTurn(
       resourceCards[0] ||
       bot.hand[0];
 
+    const prevHandLength = bot.hand.length;
     const res = playCard(state, botFaction, cardToPlay.instanceId, players);
     state = res.state;
     players = res.players;
     bot = players[botFaction];
+
+    // Safety: break if card couldn't be played to prevent infinite loop
+    if (bot && bot.hand.length >= prevHandLength) {
+      break;
+    }
 
     if (onStep) onStep(state, players);
     await delay(stepDelayMs);
@@ -183,7 +189,8 @@ export async function executeBotTurn(
 
   // STEP 4: Tactical Purchases in Galaxy Row & Outer Rim Pilots
   let keepShopping = true;
-  while (keepShopping) {
+  let shopSafety = 10;
+  while (keepShopping && shopSafety-- > 0) {
     bot = players[botFaction];
     if (!bot) break;
     let bestSlot = -1;
@@ -249,7 +256,8 @@ export async function executeBotTurn(
   let opponent = players[opponentFaction];
 
   // Target guarding Capital Ships
-  while (bot && opponent && bot.attack > 0 && opponent.fleet.length > 0) {
+  let combatSafety = 10;
+  while (bot && opponent && bot.attack > 0 && opponent.fleet.length > 0 && combatSafety-- > 0) {
     const guards = getGuardingCapitalShips(opponent);
     if (guards.length === 0) break;
 

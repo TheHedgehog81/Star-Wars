@@ -1,16 +1,20 @@
 import React from 'react';
 import { PlayerState, Card } from '../types/game';
-import { FACTION_CONFIGS } from '../data/factions';
+import { FACTION_CONFIGS, getFactionSolidCardStyle } from '../data/factions';
 import { FactionIcon } from './FactionIcon';
 import { CardView } from './CardView';
-import { BlasterAttackIcon } from './GameIcons';
+import {
+  BlasterAttackIcon,
+  StarshipFleetIcon,
+  SolidShieldIcon,
+  SolidPlanetIcon,
+} from './GameIcons';
 import {
   Shield,
-  Anchor,
   Layers,
   Award,
   AlertTriangle,
-  Bot as BotIcon,
+  Swords,
   Flame,
   Sparkles,
 } from 'lucide-react';
@@ -65,7 +69,7 @@ export const BotArea: React.FC<BotAreaProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold text-sm text-slate-100 flex items-center gap-1.5">
-                <BotIcon className="w-3.5 h-3.5 text-slate-400" />
+                <Swords className="w-3.5 h-3.5 text-slate-400" />
                 <span>{bot.name}</span>
               </h3>
               <span
@@ -84,13 +88,13 @@ export const BotArea: React.FC<BotAreaProps> = ({
           </div>
         </div>
 
-        {/* Trophies (Bases destroyed by Bot) */}
+        {/* Trophies (Bases destroyed by Opponent) */}
         <div className="flex items-center gap-3 text-xs">
           <div
             title={
               language === 'it'
-                ? 'Basi nemiche distrutte dal Bot'
-                : 'Enemy bases destroyed by Bot'
+                ? 'Basi nemiche distrutte dall\'Avversario'
+                : 'Enemy bases destroyed by Opponent'
             }
             className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg text-slate-300 font-mono"
           >
@@ -122,99 +126,106 @@ export const BotArea: React.FC<BotAreaProps> = ({
       {/* Main Bot Zone (Active Base + Fleet Zone) */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
         {/* Active Base Card */}
-        <div
-          id="bot-active-base"
-          className={`md:col-span-4 flex flex-col justify-between p-3 rounded-xl border-2 bg-gradient-to-b ${bot.activeBase.colorTone} shadow-lg relative overflow-hidden`}
-        >
-          <div>
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase tracking-widest bg-slate-900/80 px-2 py-0.5 rounded text-slate-300 border border-slate-700">
-                {language === 'it' ? 'Base Attiva Nemica' : 'Enemy Active Base'}
-              </span>
-              {baseIsGuarded && (
-                <span
-                  title={
-                    language === 'it'
-                      ? 'Base difesa da Navi Ammiraglie! Devi prima distruggerle.'
-                      : 'Base guarded by Capital Ships! Destroy them first.'
-                  }
-                  className="flex items-center gap-1 text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded animate-pulse"
-                >
-                  <Shield className="w-3 h-3" />
-                  {language === 'it' ? 'Protetto' : 'Guarded'}
-                </span>
-              )}
-            </div>
+        {(() => {
+          const baseSolid = getFactionSolidCardStyle(bot.activeBase.faction);
+          return (
+            <div
+              id="bot-active-base"
+              className={`md:col-span-4 flex flex-col justify-between p-3 rounded-lg border-2 ${baseSolid.bg} ${baseSolid.border} relative overflow-hidden`}
+            >
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-bold uppercase tracking-widest bg-black/60 px-2 py-0.5 rounded text-white border border-black/80">
+                    {language === 'it' ? 'Base Attiva Nemica' : 'Enemy Active Base'}
+                  </span>
+                  {baseIsGuarded && (
+                    <span
+                      title={
+                        language === 'it'
+                          ? 'Base difesa da Navi Ammiraglie! Devi prima distruggerle.'
+                          : 'Base guarded by Capital Ships! Destroy them first.'
+                      }
+                      className="flex items-center gap-1 text-[10px] font-bold uppercase bg-amber-500 text-slate-950 px-2 py-0.5 rounded"
+                    >
+                      <Shield className="w-3 h-3" />
+                      {language === 'it' ? 'Protetto' : 'Guarded'}
+                    </span>
+                  )}
+                </div>
 
-            <h4 className="text-base font-black text-slate-100 mt-2 tracking-wide">
-              {language === 'it' ? bot.activeBase.nameIt : bot.activeBase.name}
-            </h4>
+                <h4 className="text-base font-black text-white mt-2 tracking-wide flex items-center gap-1.5">
+                  <FactionIcon faction={bot.activeBase.faction} className="w-4 h-4 flex-shrink-0" />
+                  <span>{language === 'it' ? bot.activeBase.nameIt : bot.activeBase.name}</span>
+                </h4>
 
-            {/* HP Bar */}
-            <div className="mt-2">
-              <div className="flex items-center justify-between text-xs font-mono mb-1">
-                <span className="text-slate-300 flex items-center gap-1">
-                  <Shield className="w-3 h-3 text-red-400" />
-                  {language === 'it' ? 'Punti Struttura' : 'Hull Points'}
-                </span>
-                <span className="font-bold text-slate-100">
-                  {bot.activeBase.currentHp} / {bot.activeBase.maxHp}
-                </span>
+                {/* HP Bar */}
+                <div className="mt-2">
+                  <div className="flex items-center justify-between text-xs font-mono mb-1">
+                    <span className="text-purple-300 flex items-center gap-1 font-bold">
+                      <SolidPlanetIcon className="w-3.5 h-3.5 text-purple-300" />
+                      {language === 'it' ? 'Punti Struttura' : 'Hull Points'}
+                    </span>
+                    <span className="font-bold text-purple-300 bg-black/70 px-2 py-0.5 rounded border border-purple-500/40 flex items-center gap-1">
+                      <SolidPlanetIcon className="w-3 h-3 text-purple-300" />
+                      <span>{bot.activeBase.currentHp} / {bot.activeBase.maxHp} PF</span>
+                    </span>
+                  </div>
+                  <div className="w-full h-2.5 bg-black/70 rounded overflow-hidden border border-black/80">
+                    <div
+                      className={`h-full transition-all duration-300 ${
+                        baseHpPercent > 50
+                          ? 'bg-purple-500'
+                          : baseHpPercent > 25
+                          ? 'bg-amber-500'
+                          : 'bg-red-500'
+                      }`}
+                      style={{ width: `${baseHpPercent}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Base ability text */}
+                <p className="mt-2 text-[11px] text-white leading-snug bg-black/60 p-2 rounded border border-black/70 font-medium">
+                  {language === 'it'
+                    ? bot.activeBase.abilityTextIt
+                    : bot.activeBase.abilityText}
+                </p>
               </div>
-              <div className="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-700/80">
-                <div
-                  className={`h-full transition-all duration-500 ${
-                    baseHpPercent > 50
-                      ? 'bg-gradient-to-r from-emerald-500 to-green-400'
-                      : baseHpPercent > 25
-                      ? 'bg-gradient-to-r from-yellow-500 to-amber-400'
-                      : 'bg-gradient-to-r from-red-600 to-red-400 animate-pulse'
-                  }`}
-                  style={{ width: `${baseHpPercent}%` }}
-                />
+
+              {/* Attack Base Button */}
+              <div className="mt-3 pt-2 border-t border-black/50">
+                {isPlayerTurn && (
+                  <button
+                    id="btn-attack-enemy-base"
+                    disabled={baseIsGuarded || humanAttack <= 0}
+                    onClick={() => onAttackBase(Math.min(humanAttack, bot.activeBase.currentHp))}
+                    className={`w-full py-2 px-3 rounded font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 ${
+                      !baseIsGuarded && humanAttack > 0
+                        ? 'bg-red-600 hover:bg-red-500 text-white active:scale-95'
+                        : 'bg-black/50 text-slate-400 cursor-not-allowed border border-black/60'
+                    }`}
+                  >
+                    <BlasterAttackIcon className="w-4 h-4" />
+                    <span>
+                      {baseIsGuarded
+                        ? language === 'it'
+                          ? 'Distruggi prima le Navi Ammiraglie'
+                          : 'Destroy Capital Ships first'
+                        : humanAttack > 0
+                        ? `${language === 'it' ? 'Attacca Base (-' : 'Attack Base (-'}${Math.min(
+                            humanAttack,
+                            bot.activeBase.currentHp
+                          )} PF)`
+                        : language === 'it'
+                        ? 'Nessun Attacco disponibile'
+                        : 'No Attack available'}
+                    </span>
+                  </button>
+                )}
               </div>
             </div>
-
-            {/* Base ability text */}
-            <p className="mt-2 text-[11px] text-slate-300 leading-snug bg-slate-950/50 p-2 rounded border border-slate-800">
-              {language === 'it'
-                ? bot.activeBase.abilityTextIt
-                : bot.activeBase.abilityText}
-            </p>
-          </div>
-
-          {/* Attack Base Button (active during player's turn if attack available and no guards) */}
-          <div className="mt-3 pt-2 border-t border-slate-800/80">
-            {isPlayerTurn && (
-              <button
-                id="btn-attack-enemy-base"
-                disabled={baseIsGuarded || humanAttack <= 0}
-                onClick={() => onAttackBase(Math.min(humanAttack, bot.activeBase.currentHp))}
-                className={`w-full py-2 px-3 rounded-lg font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow ${
-                  !baseIsGuarded && humanAttack > 0
-                    ? 'bg-red-600 hover:bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)] active:scale-95'
-                    : 'bg-slate-800/80 text-slate-500 cursor-not-allowed border border-slate-700'
-                }`}
-              >
-                <BlasterAttackIcon className="w-4 h-4" glow={!baseIsGuarded && humanAttack > 0} />
-                <span>
-                  {baseIsGuarded
-                    ? language === 'it'
-                      ? 'Distruggi prima le Navi Ammiraglie'
-                      : 'Destroy Capital Ships first'
-                    : humanAttack > 0
-                    ? `${language === 'it' ? 'Attacca Base (-' : 'Attack Base (-'}${Math.min(
-                        humanAttack,
-                        bot.activeBase.currentHp
-                      )} PF)`
-                    : language === 'it'
-                    ? 'Nessun Attacco disponibile'
-                    : 'No Attack available'}
-                </span>
-              </button>
-            )}
-          </div>
-        </div>
+          );
+        })()}
 
         {/* Fleet Zone (Capital Ships) */}
         <div
@@ -223,7 +234,7 @@ export const BotArea: React.FC<BotAreaProps> = ({
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-300">
-              <Anchor className="w-4 h-4 text-blue-400" />
+              <StarshipFleetIcon className="w-4 h-4 text-blue-400" />
               <span>{language === 'it' ? 'Flotta Nemica (Navi Ammiraglie)' : 'Enemy Fleet (Capital Ships)'}</span>
               <span className="font-mono text-slate-500">({bot.fleet.length})</span>
             </div>
@@ -240,7 +251,7 @@ export const BotArea: React.FC<BotAreaProps> = ({
           {/* Ships grid */}
           {bot.fleet.length === 0 ? (
             <div className="flex-1 flex flex-col items-center justify-center min-h-[140px] text-slate-600 text-xs font-mono border border-dashed border-slate-800 rounded-lg p-4 text-center">
-              <Anchor className="w-6 h-6 mb-1 text-slate-700" />
+              <StarshipFleetIcon className="w-6 h-6 mb-1 text-slate-700" />
               <span>
                 {language === 'it'
                   ? 'Nessuna Nave Ammiraglia nemica in gioco. La Base è vulnerabile!'
@@ -257,35 +268,37 @@ export const BotArea: React.FC<BotAreaProps> = ({
                 );
                 const canAttackShip = isPlayerTurn && humanAttack > 0;
 
+                const shipSolid = getFactionSolidCardStyle(ship.faction);
                 return (
                   <div
                     key={ship.instanceId}
-                    className="relative flex flex-col justify-between w-36 sm:w-40 rounded-xl border-2 border-blue-500/50 bg-gradient-to-b from-blue-950/50 to-slate-950 p-2 shadow-md"
+                    className={`relative flex flex-col justify-between w-36 sm:w-40 rounded-lg border-2 ${shipSolid.bg} ${shipSolid.border} p-2`}
                   >
                     <div>
-                      <div className="flex items-center justify-between text-[9px] uppercase font-bold text-blue-300 mb-1">
-                        <span className="flex items-center gap-0.5">
-                          <Anchor className="w-3 h-3" />
+                      <div className="flex items-center justify-between text-[9px] uppercase font-bold text-white mb-1">
+                        <span className="flex items-center gap-1">
+                          <StarshipFleetIcon className="w-3 h-3" />
                           {language === 'it' ? 'Flotta' : 'Fleet'}
                         </span>
-                        <span className="bg-blue-900/60 px-1 py-0.5 rounded font-mono">
-                          {remainingHull}/{ship.hull} PF
+                        <span className="bg-black/70 px-1.5 py-0.5 rounded font-mono font-bold text-purple-300 border border-purple-500/40 flex items-center gap-1">
+                          <SolidShieldIcon className="w-2.5 h-2.5 text-purple-300" />
+                          <span>{remainingHull}/{ship.hull} PF</span>
                         </span>
                       </div>
 
-                      <h5 className="font-bold text-xs text-slate-100 leading-tight">
+                      <h5 className="font-bold text-xs text-white leading-tight">
                         {language === 'it' ? ship.nameIt : ship.name}
                       </h5>
 
                       {/* Hull bar */}
-                      <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden my-1.5 border border-slate-700">
+                      <div className="w-full h-1.5 bg-black/70 rounded overflow-hidden my-1.5 border border-black/80">
                         <div
-                          className="h-full bg-blue-500 transition-all duration-300"
+                          className="h-full bg-purple-500 transition-all duration-300"
                           style={{ width: `${hullPercent}%` }}
                         />
                       </div>
 
-                      <p className="text-[10px] text-slate-300 leading-tight line-clamp-2">
+                      <p className="text-[10px] text-white leading-tight line-clamp-2 bg-black/55 p-1 rounded font-medium">
                         {language === 'it' ? ship.abilityTextIt : ship.abilityText}
                       </p>
                     </div>

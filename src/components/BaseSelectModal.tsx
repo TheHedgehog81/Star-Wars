@@ -1,7 +1,9 @@
 import React from 'react';
 import { Base } from '../types/game';
 import { FactionIcon } from './FactionIcon';
-import { Shield, Zap, AlertTriangle, Check } from 'lucide-react';
+import { getFactionSolidCardStyle } from '../data/factions';
+import { SolidPlanetIcon } from './GameIcons';
+import { Shield, AlertTriangle, Check } from 'lucide-react';
 
 interface BaseSelectModalProps {
   availableBases: Base[];
@@ -39,42 +41,45 @@ export const BaseSelectModal: React.FC<BaseSelectModalProps> = ({
 
         {/* Bases Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 my-4">
-          {availableBases.map((base) => (
-            <div
-              key={base.id}
-              className={`flex flex-col justify-between p-3.5 rounded-xl border-2 bg-gradient-to-b ${base.colorTone} shadow-lg transition hover:scale-102 hover:border-amber-400`}
-            >
-              <div>
-                <div className="flex items-center justify-between text-xs font-mono font-bold mb-1.5">
-                  <span className="text-[10px] uppercase tracking-widest text-slate-400">
-                    {language === 'it' ? 'Punti Struttura' : 'Hull Points'}
-                  </span>
-                  <span className="flex items-center gap-1 text-cyan-300 bg-slate-950/70 px-2 py-0.5 rounded border border-slate-700">
-                    <Shield className="w-3.5 h-3.5" />
-                    {base.maxHp} PF
-                  </span>
+          {availableBases.map((base) => {
+            const solid = getFactionSolidCardStyle(base.faction);
+            return (
+              <div
+                key={base.id}
+                className={`flex flex-col justify-between p-3.5 rounded-lg border-2 ${solid.bg} ${solid.border} transition hover:scale-102`}
+              >
+                <div>
+                  <div className="flex items-center justify-between text-xs font-mono font-bold mb-1.5">
+                    <span className="text-[10px] uppercase tracking-widest text-slate-300">
+                      {language === 'it' ? 'Punti Struttura' : 'Hull Points'}
+                    </span>
+                    <span className="flex items-center gap-1.5 text-purple-300 bg-black/70 px-2 py-0.5 rounded border border-purple-500/40 font-bold">
+                      <SolidPlanetIcon className="w-3.5 h-3.5 text-purple-300" />
+                      <span>{base.maxHp} PF</span>
+                    </span>
+                  </div>
+
+                  <h3 className="font-black text-base text-white tracking-wide flex items-center gap-1.5">
+                    <FactionIcon faction={base.faction} className="w-4 h-4 flex-shrink-0" />
+                    <span>{language === 'it' ? base.nameIt : base.name}</span>
+                  </h3>
+
+                  <p className="mt-2 text-xs text-white leading-relaxed bg-black/60 p-2.5 rounded border border-black/70 font-medium">
+                    {language === 'it' ? base.abilityTextIt : base.abilityText}
+                  </p>
                 </div>
 
-                <h3 className="font-black text-base text-slate-100 tracking-wide flex items-center gap-1.5">
-                  <FactionIcon faction={base.faction} className="w-4 h-4 flex-shrink-0" glow />
-                  <span>{language === 'it' ? base.nameIt : base.name}</span>
-                </h3>
-
-                <p className="mt-2 text-xs text-slate-200 leading-relaxed bg-slate-950/60 p-2.5 rounded-lg border border-slate-800">
-                  {language === 'it' ? base.abilityTextIt : base.abilityText}
-                </p>
+                <button
+                  id={`btn-select-base-${base.id}`}
+                  onClick={() => onSelectBase(base.id)}
+                  className="mt-3.5 w-full py-2 px-3 rounded bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider transition active:scale-95 flex items-center justify-center gap-1.5"
+                >
+                  <Check className="w-4 h-4" />
+                  <span>{language === 'it' ? 'Stabilisci Base' : 'Establish Base'}</span>
+                </button>
               </div>
-
-              <button
-                id={`btn-select-base-${base.id}`}
-                onClick={() => onSelectBase(base.id)}
-                className="mt-3.5 w-full py-2 px-3 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_12px_rgba(251,191,36,0.3)] transition active:scale-95 flex items-center justify-center gap-1.5"
-              >
-                <Check className="w-4 h-4" />
-                <span>{language === 'it' ? 'Stabilisci Base' : 'Establish Base'}</span>
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Note */}
